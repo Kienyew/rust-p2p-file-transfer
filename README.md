@@ -127,3 +127,7 @@ This section discusses how a peer responds an incoming request from its **neighb
    The peer simply return the chunk to the requesting neighbor.
 
    (no rejection mechanism for simplicity)
+
+
+## Footnotes
+This project uses ![ProtoBuf](https://en.wikipedia.org/wiki/Protocol_Buffers)
