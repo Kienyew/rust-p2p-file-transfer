@@ -1,0 +1,50 @@
+#!sh
+
+echo "Creating torrent file"
+cat <<EOF > torrent-file
+{
+    "file_size": 10485760,
+    "tracker_addr": "127.0.0.1:8000"
+}
+EOF
+
+echo "Creating the original file to share"
+dd if=/dev/random of=original-file bs=1M count=10
+
+echo "Starting tracker"
+./tracker 127.0.0.1:8000 &
+
+sleep 0.1
+
+echo "Starting initial seeder"
+./peer 127.0.0.1:8001 torrent-file original-file seeder &
+
+echo "Starting peer 1"
+./peer 127.0.0.1:8002 torrent-file peer1-file peer &
+
+echo "Starting peer 2"
+./peer 127.0.0.1:8003 torrent-file peer2-file peer &
+
+echo "Starting peer 3"
+./peer 127.0.0.1:8004 torrent-file peer3-file peer &
+
+echo "Starting peer 4"
+./peer 127.0.0.1:8005 torrent-file peer4-file peer &
+
+echo "Starting peer 5"
+./peer 127.0.0.1:8006 torrent-file peer5-file peer &
+
+echo "Starting peer 6"
+./peer 127.0.0.1:8007 torrent-file peer6-file peer &
+
+echo "Wait 5 seconds to let the file fully distributes"
+sleep 5
+
+md5sum original-file
+md5sum peer*-file
+
+echo "Cleaning"
+rm original-file torrent-file peer*-file
+
+echo "Quiting"
+trap 'kill $(jobs -p)' EXIT

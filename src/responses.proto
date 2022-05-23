@@ -1,0 +1,26 @@
+syntax = "proto3";
+package responses;
+
+message Response
+{
+  message Ok { }
+  message Bad { }
+  message PeerList
+  {
+    repeated string addresses = 1;
+  }
+
+  message ChunksQuery
+  {
+    repeated uint64 chunk_ids = 1;
+  }
+
+  oneof type
+  {
+    Ok ok = 1;
+    Bad bad = 2;
+    PeerList peer_list = 3;
+    ChunksQuery chunks_query = 4;
+    bytes chunk = 5;
+  }
+}

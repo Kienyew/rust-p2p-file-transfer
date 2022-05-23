@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package requests;
+
+message Request
+{
+  message Join { string listening_addr = 1; }
+  message ActiveProof { string listening_addr = 1; }
+  message PeerList { }
+  message ChunksQuery { }
+  message FetchChunk { uint64 chunk_id = 1; }
+
+  oneof type
+  {
+    Join join = 1;
+    ActiveProof active_proof = 2;
+    PeerList peer_list = 3;
+    ChunksQuery chunks_query = 4;
+    FetchChunk fetch_chunk = 5;
+  }
+}
