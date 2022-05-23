@@ -130,4 +130,4 @@ This section discusses how a peer responds an incoming request from its **neighb
 
 
 ## Footnotes
-This project uses ![ProtoBuf](https://en.wikipedia.org/wiki/Protocol_Buffers)
+This project uses https://en.wikipedia.org/wiki/Protocol_Buffers
